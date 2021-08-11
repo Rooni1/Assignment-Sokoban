@@ -1,0 +1,56 @@
+body{
+    
+  background-color: rgb(32, 172, 219);
+
+}
+.gameboard{
+
+  display: grid;
+  background-color:white;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto
+                         auto auto auto auto auto auto auto auto auto auto;
+ 
+}
+.block { 
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  font-size: 10px;
+  text-align: center;
+  height: 35px;
+}
+
+.tile-space {
+  background-color: lightgray;
+      
+  }
+.tile-wall {
+  background-color: brown;
+  }
+  
+.tile-goal {
+  background-color: gold;
+  }
+     
+.entity-block.tile-goal {
+  background-color: #3cb371;
+  }
+     
+.entity-player {
+  background-color: darkblue;
+  }
+.entity-block {
+  background-color: red;
+  }
+.newPosition
+{
+  background-color: darkblue;
+}
+
+
+
+
+
+
+
+
+  
