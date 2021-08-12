@@ -1,8 +1,3 @@
-var x;
-var y;
-// var currentPosition;
-// var newPosition;
-
 function createBoard(){
 
     document.getElementById("gameBoard").innerHTML = null;
@@ -15,7 +10,7 @@ function createBoard(){
         {
             
             var div = document.createElement("div");
-            div.id = `${i},${j}`;
+            div.id = `${j},${i}`;
             div.classList.add("block");
 
             if(tileMap01.mapGrid[i][j][0] === " ")
@@ -23,10 +18,7 @@ function createBoard(){
             else if (tileMap01.mapGrid[i][j][0] === "W")
             { div.classList.add(Tiles.Wall)}
             else if (tileMap01.mapGrid[i][j][0] === "P")
-            { div.classList.add(Entities.Character)
-            //    x = i;
-            //    y = j;
-            }
+            { div.classList.add(Entities.Character)}
             else if (tileMap01.mapGrid[i][j][0] === "G")
             { div.classList.add(Tiles.Goal)}
             else if (tileMap01.mapGrid[i][j][0] === "B")
@@ -47,11 +39,44 @@ document.addEventListener('keydown',HandelpressKey);
 
 function playerMove(fromElement, Toelement)
 {
+    
+    if (!Toelement.classList.contains("tile-wall"))
+    {
+        
+        if(Toelement.classList.contains("tile-goal") && !fromElement.classList.contains("entity-block" ))
+        {   
+            fromElement.classList.remove("entity-player");
+            fromElement.classList.add("tile-space", "block"); 
+            Toelement.classList.add("entity-player");
             
-    fromElement.classList.remove("entity-player");
-    fromElement.classList.add("tile-space");
-    Toelement.classList.remove("tile-space");
-    Toelement.classList.add("entity-player");    
+        }
+        else if(fromElement.classList.contains("entity-block") && Toelement.classList.contains("tile-goal"))
+        {
+           
+            fromElement.classList.remove("entity-block");
+            fromElement.classList.add("entity-player");
+            Toelement.classList.add("entity-block");
+         
+        }
+           
+        else if(fromElement.classList.contains("entity-block")){
+            Toelement.classList.remove(... Toelement.classList.values());
+            Toelement.classList.add(Entities.Block, "block"); 
+
+            fromElement.classList.remove("entity-block");
+            fromElement.classList.add("tile-space", "block");
+             
+        }
+        else if(fromElement.classList.contains("entity-player"))
+        {
+            Toelement.classList.remove(... Toelement.classList.values());
+            Toelement.classList.add(Entities.Character, "block"); 
+            fromElement.classList.remove("entity-player");
+            fromElement.classList.add("tile-space", "block");
+
+        }
+    }
+      
 }
 
 function HandelpressKey(e)
@@ -59,78 +84,72 @@ function HandelpressKey(e)
     e.preventDefault();
     player = document.getElementsByClassName("entity-player")[0]
     const [x,y] = player.id.split(",").map(Number)
-    console.log(x,y)
 
     if(e.keyCode == "38" )
     {  
-        // let  currentPosition = [x,y];
-       
+              
         const fromElement = document.getElementById(`${x},${y}`);
-        console.log(fromElement) 
-        let newPosition =  [x-1,y]; 
-      
-        const Toelement = document.getElementById(`${x-1},${y}`);
-        console.log(Toelement)
-                    
-        if(Toelement.classList.contains("tile-space") && !Toelement.classList.contains("tile-wall"))
-        {               
-            playerMove(fromElement, Toelement);
+        const Toelement = document.getElementById(`${x},${y-1}`);
+        if (Toelement.classList.contains("entity-block"))
+        {
+            const moveBlockElement = document.getElementById(`${x},${y-2}`);
+            const movePlayerElement = Toelement;
+            playerMove(movePlayerElement, moveBlockElement);
         }
+    
+        playerMove(fromElement, Toelement);
+        
     }
     else if(e.keyCode == "40")
     {
-        
-        let  currentPosition = [x,y];
-       
-        console.log(currentPosition);
        const  fromElement = document.getElementById(`${x},${y}`);
-        console.log(fromElement) 
-        let newPosition =  [x+1,y]; 
-      
-        const Toelement = document.getElementById(`${x+1},${y}`);
-        console.log(Toelement)
+           
+       const Toelement = document.getElementById(`${x},${y+1}`);
+       
                     
-        if(Toelement.classList.contains("tile-space") && !Toelement.classList.contains("tile-wall"))
-        {               
-            playerMove(fromElement, Toelement);
-        }
+       if (Toelement.classList.contains("entity-block"))
+       {
+            const moveBlockElement = document.getElementById(`${x},${y+2}`);
+            const movePlayerElement = Toelement;
+            playerMove(movePlayerElement, moveBlockElement);
+       }
+   
+       playerMove(fromElement, Toelement);
+       
 
 
     }
     else if(e.keyCode == "37")
     {
-        let  currentPosition = [x,y];
-       
-        console.log(currentPosition);
-       const  fromElement = document.getElementById(`${x},${y}`);
-        console.log(fromElement) 
-        let newPosition =  [x,y-1]; 
-      
-        const Toelement = document.getElementById(`${x},${y-1}`);
-        console.log(Toelement)
-                    
-        if(Toelement.classList.contains("tile-space") && !Toelement.classList.contains("tile-wall"))
-        {               
-            playerMove(fromElement, Toelement);
-        }
+    
+       const  fromElement = document.getElementById(`${x},${y}`);              
+       const Toelement = document.getElementById(`${x-1},${y}`);
+                     
+       if (Toelement.classList.contains("entity-block"))
+       {
+            const moveBlockElement = document.getElementById(`${x-2},${y}`);
+            const movePlayerElement = Toelement;
+            playerMove(movePlayerElement, moveBlockElement);
+       }
+   
+       playerMove(fromElement, Toelement);
 
     }
     else if(e.keyCode == "39")
     {
-        let  currentPosition = [x,y];
        
-        console.log(currentPosition);
         const  fromElement = document.getElementById(`${x},${y}`);
-         console.log(fromElement) 
-         let newPosition =  [x,y+1]; 
-       
-         const Toelement = document.getElementById(`${x},${y+1}`);
-         console.log(Toelement)
+        const Toelement = document.getElementById(`${x+1},${y}`);
+        
                      
-         if(Toelement.classList.contains("tile-space") && !Toelement.classList.contains("tile-wall"))
-         {               
-             playerMove(fromElement, Toelement);
-         }
+        if (Toelement.classList.contains("entity-block"))
+        {
+            const moveBlockElement = document.getElementById(`${x+2},${y}`);
+            const movePlayerElement = Toelement;
+            playerMove(movePlayerElement, moveBlockElement);
+        }
+    
+        playerMove(fromElement, Toelement);
     }
 }
 
