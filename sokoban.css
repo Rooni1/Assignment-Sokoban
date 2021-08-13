@@ -24,7 +24,8 @@ body{
       
   }
 .tile-wall {
-  background-color: brown;
+  background-color: rgb(168, 40, 40);
+ 
   }
   
 .tile-goal {
@@ -36,15 +37,12 @@ body{
   }
      
 .entity-player {
-  background-color: darkblue;
+  background-color: green;
   }
 .entity-block {
   background-color: red;
   }
-.newPosition
-{
-  background-color: darkblue;
-}
+
 
 
 

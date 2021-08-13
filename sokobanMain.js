@@ -40,7 +40,7 @@ document.addEventListener('keydown',HandelpressKey);
 function playerMove(fromElement, Toelement)
 {
     
-    if (!Toelement.classList.contains("tile-wall"))
+    if (!Toelement.classList.contains("tile-wall") && !Toelement.classList.contains(Entities.Block))
     {
         
         if(Toelement.classList.contains("tile-goal") && !fromElement.classList.contains("entity-block" ))
